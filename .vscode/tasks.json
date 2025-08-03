@@ -1,0 +1,35 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Frontend",
+      "type": "shell",
+      "command": "pnpm install && pnpm build",
+      "options": {
+        "cwd": "./frontend"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Backend",
+      "type": "shell",
+      "command": "dotnet build",
+      "options": {
+        "cwd": "./backend"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker Compose Up",
+      "type": "shell",
+      "command": "docker-compose up --build",
+      "options": {
+        "cwd": "./infra"
+      },
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}
