@@ -12,76 +12,38 @@ export function Weather({ mode = 'forecast' }: WeatherProps) {
   const [data, setData] = useState<WeatherForecast | WeatherForecast[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   // Get access token for API calls
   useEffect(() => {
-    async function getAccessToken() {
-      if (user) {
-        try {
-          console.log('Getting access token...');
-          const response = await fetch('/api/auth/token');
-          
-          if (response.ok) {
-            const { accessToken } = await response.json();
-            console.log('Access token received successfully');
-            setAccessToken(accessToken);
-          } else {
-            const errorData = await response.json();
-            console.error('Failed to get access token:', errorData);
-            setError(`Failed to get access token: ${errorData.error}`);
-          }
-        } catch (e) {
-          console.error('Token fetch error:', e);
-          setError('Failed to get access token - network error');
-        }
-      } else {
-        console.log('No user, skipping token fetch');
-      }
-    }
-    getAccessToken();
-  }, [user]);
-
-  useEffect(() => {
-    let cancelled = false;
-    
-    async function fetchWeather() {
-      if (!accessToken) return;
-      
+    async function fetchWeatherWithToken() {
+      if (!user) return;
       setLoading(true);
       setError(null);
-      
       try {
-        let result;
-        if (mode === 'today') {
-          result = await apiService.getTodayWeather(accessToken);
-        } else {
-          result = await apiService.getWeatherForecast(accessToken);
-        }
-        
-        if (!cancelled) {
+        const response = await fetch('/api/auth/token');
+        if (response.ok) {
+          const { accessToken } = await response.json();
+          let result;
+          if (mode === 'today') {
+            result = await apiService.getTodayWeather(accessToken);
+          } else {
+            result = await apiService.getWeatherForecast(accessToken);
+          }
           setData(result);
+        } else {
+          const errorData = await response.json();
+          setError(`Failed to get access token: ${errorData.error}`);
         }
       } catch (e) {
-        if (!cancelled) {
-          if (e instanceof ApiError) {
-            setError(`API Error: ${e.message}`);
-          } else {
-            setError('Failed to fetch weather data');
-          }
-        }
+        setError('Failed to get access token - network error');
       } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     }
+    fetchWeatherWithToken();
+  }, [user, mode]);
 
-    fetchWeather();
-    return () => {
-      cancelled = true;
-    };
-  }, [accessToken, mode]);
+  // Removed second useEffect; handled in fetchWeatherWithToken
 
   if (authLoading) {
     return <div className="animate-pulse">Authenticating... (Auth0 SDK loading)</div>;
@@ -101,9 +63,6 @@ export function Weather({ mode = 'forecast' }: WeatherProps) {
     );
   }
 
-  if (!accessToken && !error) {
-    return <div className="animate-pulse">Getting access token...</div>;
-  }
 
   if (loading) {
     return <div className="animate-pulse">Loading weather data...</div>;
