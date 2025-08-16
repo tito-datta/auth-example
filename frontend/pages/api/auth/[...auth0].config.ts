@@ -6,4 +6,3 @@ export default function authConfig() {
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
     secret: process.env.AUTH0_SECRET
   }
-}
