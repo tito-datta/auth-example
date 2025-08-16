@@ -1,0 +1,79 @@
+/* Custom Swagger UI styling for Auth0 integration */
+.swagger-ui .info .title {
+    color: #3b82f6 !important;
+}
+
+.swagger-ui .info .description {
+    font-size: 14px;
+}
+
+.swagger-ui .scheme-container {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.swagger-ui .auth-wrapper {
+    margin: 20px 0;
+}
+
+.swagger-ui .authorization__btn {
+    background: #10b981;
+    border-color: #10b981;
+}
+
+.swagger-ui .authorization__btn:hover {
+    background: #059669;
+    border-color: #059669;
+}
+
+.swagger-ui .btn.authorize {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+.swagger-ui .btn.authorize:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+}
+
+/* Highlight secured endpoints */
+.swagger-ui .opblock.opblock-get .opblock-summary-method {
+    background: #10b981;
+}
+
+.swagger-ui .opblock.opblock-get.is-open .opblock-summary {
+    border-color: #10b981;
+}
+
+/* Auth instructions styling */
+.auth-instructions {
+    background: #f0f9ff !important;
+    border: 1px solid #0ea5e9 !important;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.auth-instructions h4 {
+    color: #0c4a6e;
+    margin-top: 0;
+}
+
+.auth-instructions ol {
+    margin: 12px 0;
+    padding-left: 20px;
+}
+
+.auth-instructions p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.auth-instructions strong {
+    color: #0c4a6e;
+}

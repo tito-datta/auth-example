@@ -174,3 +174,7 @@ certificates/
 *~
 *.tmp
 *.bak
+
+backend/appsettings.Development.json
+backend/appsettings.json
+frontend/.env.development
