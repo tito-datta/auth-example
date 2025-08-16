@@ -66,7 +66,7 @@ export default function UserPage() {
         <p className="mb-4">You must be logged in to view this page.</p>
         <Link 
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          href="/api/auth/login"
+          href="/api/auth/login?prompt=login"
         >
           Login
         </Link>

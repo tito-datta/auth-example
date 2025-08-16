@@ -16,7 +16,7 @@ export default function HomePage() {
           <div className="space-y-3">
             <a 
               className="block w-full bg-blue-600 text-white text-center py-2 px-4 rounded hover:bg-blue-700 transition-colors"
-              href="/api/auth/login"
+              href="/api/auth/login?prompt=login"
             >
               Login with Auth0
             </a>
