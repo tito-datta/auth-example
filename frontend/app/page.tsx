@@ -15,20 +15,20 @@ export default function HomePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl text-blue-600 animate-pulse">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+        <div className="text-xl text-blue-600 dark:text-blue-300 animate-pulse">Loading...</div>
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 p-8">
-      <h1 className="text-5xl font-bold text-gray-900 mb-6">Welcome to Weather App</h1>
-      <p className="text-xl text-gray-600 mb-8">Get real-time weather updates for your location</p>
+    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 p-8">
+      <h1 className="text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6">Welcome to Weather App</h1>
+      <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">Get real-time weather updates for your location</p>
       {!user && (
         <a
           href="/api/auth/login"
-          className="inline-flex items-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200 transform hover:scale-105"
+          className="inline-flex items-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors duration-200 transform hover:scale-105"
         >
           <svg
             className="w-5 h-5 mr-2"

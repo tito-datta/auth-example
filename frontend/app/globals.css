@@ -1,7 +1,61 @@
+/* Sample custom styles for header and footer */
+/* Add spacing below header */
+/* Add spacing below header */
+.header-main {
+  /* Light mode gradient */
+  background: linear-gradient(90deg, #f8fafc 0%, #e0e7ef 100%);
+  color: #191920ff;
+  box-shadow: 0 2px 8px 0 rgba(25,25,32,0.08);
+}
+.header-spacer {
+  height: 3px;
+}
+.dark .header-main {
+  background: linear-gradient(90deg, #191920ff 0%, #433f3cff 100%);
+  color: #f8fafc;
+  box-shadow: 0 2px 8px 0 rgba(25,25,32,0.12);
+}
+.header-main a {
+  transition: color 0.2s;
+}
+.header-main a:hover {
+  color: #2563eb;
+}
+.dark .header-main a:hover {
+  color: #94bcedff;
+}
+
+/* Add spacing above footer */
+.footer-spacer {
+  height: 3px;
+}
+.footer-main {
+  /* Light mode gradient */
+  border-top: 2px solid #e5e7eb;
+  background: linear-gradient(90deg, #f8fafc 0%, #e0e7ef 100%);
+  color: #191920ff;
+  letter-spacing: 0.05em;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 50;
+}
+.dark .footer-main {
+  border-top: 2px solid #27272a;
+  background: linear-gradient(90deg, #191920ff 0%, #433f3cff 100%);
+  color: #94bcedff;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
   font-family: system-ui, sans-serif;
+}
+
+/* Dark mode base styles */
+body.dark {
+  background-color: #18181b;
+  color: #f3f4f6;
 }

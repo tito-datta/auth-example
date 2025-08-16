@@ -46,31 +46,31 @@ export function Weather({ mode = 'forecast' }: WeatherProps) {
   // Removed second useEffect; handled in fetchWeatherWithToken
 
   if (authLoading) {
-    return <div className="animate-pulse">Authenticating... (Auth0 SDK loading)</div>;
+    return <div className="animate-pulse text-gray-900 dark:text-gray-100">Authenticating... (Auth0 SDK loading)</div>;
   }
 
   if (authError) {
-    return <div className="text-red-600">Authentication error: {authError.message}</div>;
+    return <div className="text-red-600 dark:text-red-400">Authentication error: {authError.message}</div>;
   }
 
   if (!user) {
     return (
-      <div className="text-yellow-600 p-4 border border-yellow-300 rounded bg-yellow-50">
+      <div className="text-yellow-600 dark:text-yellow-300 p-4 border border-yellow-300 dark:border-dark-border rounded bg-yellow-50 dark:bg-dark-bg-secondary">
         <p className="font-semibold">Not logged in</p>
         <p>Please log in to view weather data</p>
-        <a href="/api/auth/login" className="text-blue-600 underline">Login here</a>
+        <a href="/api/auth/login" className="text-blue-600 dark:text-blue-400 underline">Login here</a>
       </div>
     );
   }
 
 
   if (loading) {
-    return <div className="animate-pulse">Loading weather data...</div>;
+    return <div className="animate-pulse text-gray-900 dark:text-dark-text">Loading weather data...</div>;
   }
 
   if (error) {
     return (
-      <div className="text-red-600 p-4 border border-red-300 rounded bg-red-50">
+      <div className="text-red-600 dark:text-red-300 p-4 border border-red-300 dark:border-dark-border rounded bg-red-50 dark:bg-dark-bg-secondary">
         <p className="font-semibold">Error:</p>
         <p>{error}</p>
       </div>
@@ -78,18 +78,18 @@ export function Weather({ mode = 'forecast' }: WeatherProps) {
   }
 
   if (!data) {
-    return <div className="text-gray-600">No weather data available</div>;
+    return <div className="text-gray-600 dark:text-dark-text-secondary">No weather data available</div>;
   }
 
   // Render single day weather
   if (mode === 'today' && !Array.isArray(data)) {
     return (
-      <div className="p-4 rounded border bg-white shadow w-full max-w-sm">
-        <h2 className="text-xl font-semibold mb-2">Today's Weather</h2>
-        <p className="text-4xl font-bold">{data.temperatureC}°C</p>
-        <p className="text-lg text-gray-600">{data.temperatureF}°F</p>
-        <p className="capitalize text-gray-600 mt-2">{data.summary}</p>
-        <p className="text-sm text-gray-500 mt-1">{new Date(data.date).toLocaleDateString()}</p>
+      <div className="p-4 rounded border bg-white dark:bg-dark-bg-secondary shadow w-full max-w-sm">
+        <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-dark-text">Today's Weather</h2>
+        <p className="text-4xl font-bold text-gray-900 dark:text-dark-text">{data.temperatureC}°C</p>
+        <p className="text-lg text-gray-600 dark:text-dark-text-secondary">{data.temperatureF}°F</p>
+        <p className="capitalize text-gray-600 dark:text-dark-text-secondary mt-2">{data.summary}</p>
+        <p className="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{new Date(data.date).toLocaleDateString()}</p>
       </div>
     );
   }
@@ -98,20 +98,20 @@ export function Weather({ mode = 'forecast' }: WeatherProps) {
   if (Array.isArray(data)) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold">5-Day Weather Forecast</h2>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-dark-text">5-Day Weather Forecast</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.map((forecast, index) => (
-            <div key={index} className="p-4 rounded border bg-white shadow">
-              <h3 className="font-semibold text-lg">
+            <div key={index} className="p-4 rounded border bg-white dark:bg-dark-bg-secondary shadow">
+              <h3 className="font-semibold text-lg text-gray-900 dark:text-dark-text">
                 {new Date(forecast.date).toLocaleDateString('en-US', { 
                   weekday: 'short', 
                   month: 'short', 
                   day: 'numeric' 
                 })}
               </h3>
-              <p className="text-2xl font-bold text-blue-600">{forecast.temperatureC}°C</p>
-              <p className="text-gray-600">{forecast.temperatureF}°F</p>
-              <p className="capitalize text-gray-700 mt-1">{forecast.summary}</p>
+              <p className="text-2xl font-bold text-blue-600 dark:text-blue-300">{forecast.temperatureC}°C</p>
+              <p className="text-gray-600 dark:text-dark-text-secondary">{forecast.temperatureF}°F</p>
+              <p className="capitalize text-gray-700 dark:text-dark-text-secondary mt-1">{forecast.summary}</p>
             </div>
           ))}
         </div>

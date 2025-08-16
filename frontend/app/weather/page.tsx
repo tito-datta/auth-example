@@ -24,12 +24,12 @@ export default function WeatherPage() {
   
   if (!user) {
     return (
-      <main className="p-8 max-w-4xl mx-auto">
+      <main className="p-8 max-w-4xl mx-auto bg-white dark:bg-dark-bg min-h-screen">
         <div className="text-center space-y-4">
-          <h1 className="text-2xl font-bold text-gray-800">Weather Dashboard</h1>
-          <p className="text-gray-600">You must be logged in to view weather data.</p>
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-dark-text">Weather Dashboard</h1>
+          <p className="text-gray-600 dark:text-dark-text-secondary">You must be logged in to view weather data.</p>
           <Link 
-            className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors" 
+            className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors" 
             href="/api/auth/login"
           >
             Login with Auth0
@@ -40,22 +40,22 @@ export default function WeatherPage() {
   }
 
   return (
-    <main className="p-8 max-w-6xl mx-auto space-y-8">
+    <main className="p-8 max-w-6xl mx-auto space-y-8 bg-white dark:bg-dark-bg min-h-screen">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Weather Dashboard</h1>
-        <p className="text-gray-600 mt-1">Welcome back, {user.name}!</p>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-dark-text">Weather Dashboard</h1>
+        <p className="text-gray-600 dark:text-dark-text-secondary mt-1">Welcome back, {user.name}!</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Today's Weather */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-700">Today's Weather</h2>
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-dark-text">Today's Weather</h2>
           <Weather mode="today" />
         </div>
 
         {/* 5-Day Forecast */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-700">5-Day Forecast</h2>
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-dark-text">5-Day Forecast</h2>
           <Weather mode="forecast" />
         </div>
       </div>

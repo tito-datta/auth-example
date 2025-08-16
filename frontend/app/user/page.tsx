@@ -45,15 +45,15 @@ export default function UserPage() {
 
   if (isLoading) {
     return (
-      <main className="p-8 max-w-4xl mx-auto">
-        <div className="animate-pulse">Loading...</div>
+      <main className="p-8 max-w-4xl mx-auto bg-white dark:bg-dark-bg min-h-screen">
+        <div className="animate-pulse text-blue-600 dark:text-blue-300">Loading...</div>
       </main>
     );
   }
 
   if (authError) {
     return (
-      <main className="p-8 max-w-4xl mx-auto">
+      <main className="p-8 max-w-4xl mx-auto bg-white dark:bg-dark-bg min-h-screen">
         <div className="text-red-600">Authentication Error: {authError.message}</div>
       </main>
     );
@@ -61,11 +61,11 @@ export default function UserPage() {
 
   if (!user) {
     return (
-      <main className="p-8 max-w-4xl mx-auto text-center">
-        <h1 className="text-2xl font-bold mb-4">User Information</h1>
-        <p className="mb-4">You must be logged in to view this page.</p>
+      <main className="p-8 max-w-4xl mx-auto text-center bg-white dark:bg-dark-bg min-h-screen">
+        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-dark-text">User Information</h1>
+        <p className="mb-4 text-gray-700 dark:text-dark-text-secondary">You must be logged in to view this page.</p>
         <Link 
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800"
           href="/api/auth/login?prompt=login"
         >
           Login
@@ -75,19 +75,19 @@ export default function UserPage() {
   }
 
   return (
-    <main className="p-8 max-w-4xl mx-auto space-y-8">
+    <main className="p-8 max-w-4xl mx-auto space-y-8 bg-white dark:bg-dark-bg min-h-screen">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">User Information</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-dark-text">User Information</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Frontend User Info (from Auth0 SDK) */}
-        <div className="bg-white p-6 rounded border shadow">
-          <h2 className="text-xl font-semibold mb-4 text-green-700">Frontend User Info</h2>
+        <div className="bg-white dark:bg-dark-bg-secondary p-6 rounded border border-gray-200 dark:border-dark-border shadow">
+          <h2 className="text-xl font-semibold mb-4 text-green-700 dark:text-green-400">Frontend User Info</h2>
           <div className="space-y-2">
-            <p><strong>Name:</strong> {user.name}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Picture:</strong></p>
+            <p className="text-gray-900 dark:text-dark-text"><strong>Name:</strong> {user.name}</p>
+            <p className="text-gray-900 dark:text-dark-text"><strong>Email:</strong> {user.email}</p>
+            <p className="text-gray-900 dark:text-dark-text"><strong>Picture:</strong></p>
             {user.picture && (
               <img 
                 src={user.picture} 
@@ -97,7 +97,7 @@ export default function UserPage() {
             )}
             <details className="mt-4">
               <summary className="cursor-pointer font-semibold">Raw User Object</summary>
-              <pre className="mt-2 p-3 bg-gray-100 rounded text-xs overflow-auto">
+              <pre className="mt-2 p-3 bg-gray-100 dark:bg-dark-bg rounded text-xs overflow-auto">
                 {JSON.stringify(user, null, 2)}
               </pre>
             </details>
@@ -105,34 +105,34 @@ export default function UserPage() {
         </div>
 
         {/* Backend User Info (from API) */}
-        <div className="bg-white p-6 rounded border shadow">
+        <div className="bg-white dark:bg-dark-bg-secondary p-6 rounded border border-gray-200 dark:border-dark-border shadow">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-blue-700">Backend User Info</h2>
+            <h2 className="text-xl font-semibold text-blue-700 dark:text-blue-300">Backend User Info</h2>
             <button 
               onClick={fetchUserInfo}
               disabled={loading}
-              className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 disabled:opacity-50"
+              className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 disabled:opacity-50"
             >
               {loading ? 'Loading...' : 'Refresh'}
             </button>
           </div>
           
           {error && (
-            <div className="bg-red-50 border border-red-300 text-red-700 p-3 rounded mb-4">
+            <div className="bg-red-50 dark:bg-red-900 border border-red-300 dark:border-dark-border text-red-700 dark:text-red-300 p-3 rounded mb-4">
               {error}
             </div>
           )}
           
           {userInfo && (
             <div className="space-y-4">
-              <p><strong>Authenticated:</strong> {userInfo.isAuthenticated ? '✅ Yes' : '❌ No'}</p>
-              <p><strong>Name:</strong> {userInfo.name || 'Not available'}</p>
+              <p className="text-gray-900 dark:text-dark-text"><strong>Authenticated:</strong> {userInfo.isAuthenticated ? '✅ Yes' : '❌ No'}</p>
+              <p className="text-gray-900 dark:text-dark-text"><strong>Name:</strong> {userInfo.name || 'Not available'}</p>
               
               <div>
-                <h3 className="font-semibold mb-2">JWT Claims:</h3>
+                <h3 className="font-semibold mb-2 text-gray-900 dark:text-dark-text">JWT Claims:</h3>
                 <div className="max-h-64 overflow-auto">
                   {userInfo.claims.map((claim, index) => (
-                    <div key={index} className="text-sm border-b py-1">
+                    <div key={index} className="text-sm border-b border-gray-200 dark:border-dark-border py-1 text-gray-900 dark:text-dark-text">
                       <strong>{claim.type}:</strong> {claim.value}
                     </div>
                   ))}
