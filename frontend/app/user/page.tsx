@@ -76,13 +76,8 @@ export default function UserPage() {
 
   return (
     <main className="p-8 max-w-4xl mx-auto space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="mb-8">
         <h1 className="text-3xl font-bold">User Information</h1>
-        <div className="space-x-4">
-          <Link className="text-blue-600 hover:underline" href="/">Home</Link>
-          <Link className="text-blue-600 hover:underline" href="/weather">Weather</Link>
-          <Link className="text-red-600 hover:underline" href="/api/auth/logout">Logout</Link>
-        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

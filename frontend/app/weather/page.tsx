@@ -41,25 +41,9 @@ export default function WeatherPage() {
 
   return (
     <main className="p-8 max-w-6xl mx-auto space-y-8">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800">Weather Dashboard</h1>
-          <p className="text-gray-600 mt-1">Welcome back, {user.name}!</p>
-        </div>
-        <div className="space-x-4">
-          <Link 
-            className="text-blue-600 hover:text-blue-800 underline" 
-            href="/"
-          >
-            Home
-          </Link>
-          <Link 
-            className="text-red-600 hover:text-red-800 underline" 
-            href="/api/auth/logout"
-          >
-            Logout
-          </Link>
-        </div>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800">Weather Dashboard</h1>
+        <p className="text-gray-600 mt-1">Welcome back, {user.name}!</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

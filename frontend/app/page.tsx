@@ -1,5 +1,4 @@
-import Link from 'next/link';
-
+// Navigation links moved to header
 export default function HomePage() {
   return (
     <main className="p-8 max-w-4xl mx-auto space-y-8">
@@ -15,18 +14,18 @@ export default function HomePage() {
         <div className="bg-white p-6 rounded-lg shadow border">
           <h2 className="text-xl font-semibold mb-4 text-blue-700">🔐 Authentication</h2>
           <div className="space-y-3">
-            <Link 
+            <a 
               className="block w-full bg-blue-600 text-white text-center py-2 px-4 rounded hover:bg-blue-700 transition-colors"
               href="/api/auth/login"
             >
               Login with Auth0
-            </Link>
-            <Link 
+            </a>
+            <a 
               className="block w-full bg-gray-600 text-white text-center py-2 px-4 rounded hover:bg-gray-700 transition-colors"
               href="/user"
             >
               View User Info
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -34,12 +33,12 @@ export default function HomePage() {
         <div className="bg-white p-6 rounded-lg shadow border">
           <h2 className="text-xl font-semibold mb-4 text-green-700">🌤️ Weather Data</h2>
           <div className="space-y-3">
-            <Link 
+            <a 
               className="block w-full bg-green-600 text-white text-center py-2 px-4 rounded hover:bg-green-700 transition-colors"
               href="/weather"
             >
               Weather Dashboard
-            </Link>
+            </a>
             <p className="text-sm text-gray-600">
               Protected route - requires authentication
             </p>
