@@ -15,6 +15,10 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("https://localhost:3001")
               .AllowAnyHeader()
               .AllowAnyMethod()
+        var allowedOrigin = builder.Configuration["FRONTEND_ORIGIN"] ?? "http://localhost:3000";
+        policy.WithOrigins(allowedOrigin)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
               .AllowCredentials();
     });
 });
