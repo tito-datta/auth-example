@@ -29,7 +29,12 @@ function WeatherInner() {
       const json = await res.json();
       setData(json);
     } catch (e: any) {
-      setError(e.message);
+    } catch (e: unknown) {
+      let message = 'An unknown error occurred';
+      if (typeof e === 'object' && e !== null && 'message' in e && typeof (e as any).message === 'string') {
+        message = (e as any).message;
+      }
+      setError(message);
       console.error('Weather API error:', e);
     } finally {
       setLoading(false);
