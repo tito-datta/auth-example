@@ -1,95 +1,64 @@
 'use client';
-
-import { useUser } from '@auth0/nextjs-auth0';
-import { WeatherCard } from '../components/WeatherCard';
-import { WeatherData } from '../types/weather';
-import { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { Weather } from '../../components/Weather';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from 'next/link';
 
 export default function WeatherPage() {
-  const { user, error: authError, isLoading: isAuthLoading } = useUser();
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
+  const { user, error, isLoading } = useUser();
   useEffect(() => {
-    async function fetchWeatherData() {
-      if (!user) return;
-      
-      setIsLoading(true);
-      setError(null);
-      
-      try {
-        const response = await fetch('/api/weather');
-        if (!response.ok) {
-          throw new Error('Failed to fetch weather data');
-        }
-        const data = await response.json();
-        setWeatherData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch weather data');
-        console.error('Error fetching weather:', err);
-      } finally {
-        setIsLoading(false);
+    if (!isLoading && !user) {
+      if (typeof window !== 'undefined' && window.location.pathname !== '/api/auth/login') {
+        window.location.href = '/api/auth/login';
       }
     }
+  }, [user, isLoading]);
 
-    fetchWeatherData();
-  }, [user]);
-
-  if (isAuthLoading) {
+  if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-xl">Loading...</div>
-      </div>
+      <main className="p-8 max-w-4xl mx-auto">
+        <div className="animate-pulse">Loading...</div>
+      </main>
     );
   }
 
-  if (authError) {
+  if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-red-500">Error: {authError.message}</div>
-      </div>
+      <main className="p-8 max-w-4xl mx-auto">
+        <div className="text-red-600">Error: {error.message}</div>
+      </main>
     );
   }
 
   if (!user) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-xl">Please <Link href="/api/auth/login" className="text-blue-500 hover:text-blue-700">log in</Link> to view the weather.</div>
-      </div>
-    );
+    // Optionally, show nothing or a loading spinner while redirecting
+    // Redirect to login if not authenticated
+    React.useEffect(() => {
+      window.location.href = '/api/auth/login';
+    }, []);
+    return null;
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Weather Dashboard</h1>
-            <p className="text-gray-600">Welcome, {user.name}</p>
-          </div>
-          <Link
-            href="/api/auth/logout"
-            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
-          >
-            Log Out
-          </Link>
+    <main className="p-8 max-w-6xl mx-auto space-y-8 bg-white dark:bg-dark-bg min-h-screen">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-dark-text">Weather Dashboard</h1>
+        <p className="text-gray-600 dark:text-dark-text-secondary mt-1">Welcome back, {user.name}!</p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Today's Weather */}
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-dark-text">Today's Weather</h2>
+          <Weather mode="today" />
         </div>
 
-        <div className="flex flex-col items-center justify-center py-8">
-          {isLoading ? (
-            <div className="text-xl">Loading weather data...</div>
-          ) : error ? (
-            <div className="text-red-500 text-center max-w-md">
-              <p className="text-xl font-semibold mb-2">Error</p>
-              <p>{error}</p>
-            </div>
-          ) : weatherData ? (
-            <WeatherCard weather={weatherData} />
-          ) : null}
+        {/* 5-Day Forecast */}
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-dark-text">5-Day Forecast</h2>
+          <Weather mode="forecast" />
         </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -1,36 +1,43 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  server: {
-    https: {
-      key: './certificates/localhost-key.pem',  // Update with your certificate paths
-      cert: './certificates/localhost.pem',
-    },
-    port: 3000,
+  reactStrictMode: true,
+  experimental: {
+    appDir: true
   },
-  async headers() {
-    return [
+  images: {
+    remotePatterns: [
       {
-        // Apply these headers to all routes
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=31536000; includeSubDomains'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY'
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block'
-          },
-        ],
+        protocol: 'https',
+        hostname: 'openweathermap.org'
       },
+      {
+        protocol: 'https',
+        hostname: '*.auth0.com'
+      }
     ]
   },
-}
+  headers: async () => [
+    {
+      source: '/(.*)',
+      headers: [
+        { 
+          key: 'Content-Security-Policy', 
+          value: [
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.auth0.com",
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+            "img-src 'self' data: https: blob:",
+            "font-src 'self' https://fonts.gstatic.com",
+            "connect-src 'self' https://*.auth0.com https://api.openweathermap.org http://localhost:5223 https://localhost:5001",
+            "frame-src 'self' https://*.auth0.com",
+            "frame-ancestors 'none'",
+            "base-uri 'self'",
+            "form-action 'self' https://*.auth0.com"
+          ].join('; ')
+        }
+      ]
+    }
+  ]
+};
+
+module.exports = nextConfig;
