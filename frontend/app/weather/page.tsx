@@ -75,52 +75,6 @@ export default function WeatherPage() {
           <Weather mode="forecast" />
         </div>
       </div>
-
-      {/* Debug Information */}
-      <div className="bg-gray-100 p-4 rounded">
-        <h3 className="text-lg font-semibold mb-2">Debug Information</h3>
-        <p className="text-sm text-gray-600">
-          This page fetches weather data from your secured backend API using Auth0 JWT tokens.
-        </p>
-        <p className="text-sm text-gray-600 mt-1">
-          Backend API: http://localhost:5223
-        </p>
-        <div className="mt-4 space-x-2">
-          <button 
-            onClick={async () => {
-              try {
-                const response = await fetch('/api/debug/session');
-                const data = await response.json();
-                alert(JSON.stringify(data, null, 2));
-              } catch (e) {
-                alert('Error checking session: ' + (e instanceof Error ? e.message : 'Unknown error'));
-              }
-            }}
-            className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700"
-          >
-            Check Session
-          </button>
-          <button 
-            onClick={async () => {
-              try {
-                const response = await fetch('/api/auth/token');
-                const data = await response.json();
-                if (response.ok) {
-                  alert('Token received successfully! Check console for details.');
-                  console.log('Access token:', data.accessToken);
-                } else {
-                  alert('Token error: ' + JSON.stringify(data, null, 2));
-                }
-              } catch (e) {
-                alert('Network error: ' + (e instanceof Error ? e.message : 'Unknown error'));
-              }
-            }}
-            className="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700"
-          >
-            Test Token
-          </button>
-        </div>
-      </div>
     </main>
   );
 }

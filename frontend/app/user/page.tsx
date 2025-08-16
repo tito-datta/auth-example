@@ -147,24 +147,6 @@ export default function UserPage() {
           )}
         </div>
       </div>
-
-      {/* API Health Check */}
-      <div className="bg-gray-50 p-6 rounded border">
-        <h2 className="text-xl font-semibold mb-4">API Health Check</h2>
-        <button 
-          onClick={async () => {
-            try {
-              const health = await apiService.getHealthCheck();
-              alert(`API Status: ${health.status}\nTimestamp: ${health.timestamp}`);
-            } catch (e) {
-              alert(`API Error: ${e instanceof Error ? e.message : 'Unknown error'}`);
-            }
-          }}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Test API Connection
-        </button>
-      </div>
     </main>
   );
 }
