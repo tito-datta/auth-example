@@ -16,7 +16,7 @@ function WeatherInner() {
     try {
       // For now, make a simple request without token
       // TODO: Add token authentication after setting up Auth0 API
-      const res = await fetch('http://localhost:5000/weatherforecast', {
+      const res = await fetch(`${API_BASE_URL}/weatherforecast`, {
         headers: {
           'Content-Type': 'application/json'
         }
