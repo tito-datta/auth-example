@@ -18,6 +18,7 @@ export default function LayoutWithHeaderFooter({ children }: { children: React.R
         email: '',
         profilePicture: '/default-profile.png',
       };
+
   return (
     <ThemeProvider>
       <Header user={headerUser} />

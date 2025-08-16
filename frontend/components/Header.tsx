@@ -80,7 +80,7 @@ export default function Header({ user }: HeaderProps) {
                 {theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
               </button>
               <Link
-                href="/api/auth/logout?federated"
+                href="/api/auth/logout?federated=true&returnTo=/"
                 className="block px-4 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-800"
                 onClick={() => setDropdownOpen(false)}
               >
